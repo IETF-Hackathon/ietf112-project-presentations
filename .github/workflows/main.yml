@@ -1,0 +1,49 @@
+# Workflow from https://4comprehension.com/github-actions-reveal-js-and-automating-pdf-conversion/
+# using Decktape https://github.com/astefanutti/decktape
+# another option is https://github.com/bellbind/remarkjs-pdf
+name: Create-PDF
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: 
+      - main
+    paths:
+      - '*'
+ 
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    name: Generate PDF
+    steps:
+      - name: Create "/presentation-pdfs" directory
+        run: mkdir presentation-pdfs && sudo chmod 777 presentation-pdfs
+        
+      - name: Get List of files
+        run: 
+          curl https://api.github.com/repos/${{ github.repository }}/contents | grep \"name\" | grep \"*.html\", | cut -d \" -f4 > pagefiles.txt
+          
+      - name:  Build pdfs   
+        run:  
+          for f in `cat pagefiles.txt`; do in="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/${f}"; out="presentation-pdfs/${f%.html}.pdf"; docker run --rm -t -v `pwd`:/slides -v ~:/home/user astefanutti/decktape $in $out; done
+  
+      - name: Remove list of files
+        run:
+         rm pagefiles.txt
+      
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./presentation-pdfs
+          publish_branch: main
+          keep_files: true

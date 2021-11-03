@@ -34,7 +34,7 @@ jobs:
           
       - name:  Build pdfs   
         run:  
-          for f in `cat pagefiles.txt`; do in="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/${f}"; out="presentation-pdfs/${f%.html}.pdf"; docker run --rm -t -v `pwd`:/slides -v ~:/home/user astefanutti/decktape $in $out; done
+          for f in `cat pagefiles.txt`; do in="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/${f}"; out="presentations/${f%.html}.pdf"; docker run --rm -t -v `pwd`:/slides -v ~:/home/user astefanutti/decktape $in $out; done
   
       - name: Remove list of files
         run:

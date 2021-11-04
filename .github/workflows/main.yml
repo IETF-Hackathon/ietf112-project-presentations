@@ -30,7 +30,7 @@ jobs:
         
       - name: Get List of files
         run: 
-          curl https://api.github.com/repos/${{ github.repository }}/contents | grep \"name\" | grep \"*.html\", | cut -d \" -f4 > pagefiles.txt
+          curl https://api.github.com/repos/${{ github.repository }}/contents?ref=gh-pages | grep \"name\" | grep \"*.html\", | cut -d \" -f4 > pagefiles.txt
           
       - name:  Build pdfs   
         run:  

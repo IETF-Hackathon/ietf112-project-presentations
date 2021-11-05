@@ -58,6 +58,8 @@ Online
   - Determine standards needed to enable secure and efficient taxation of e-commerce
   - Motivated by [introduction of taxes on digital payments in Kenya](https://www.ey.com/en_gl/tax-alerts/kenya-introduces-vat-regulations-on-supply-of-digital-services)
   - Minimise need for double registration for small to moderate transactions
+  - A standards tax API in kenya and african countries
+
         
 <How you planned to solve it?>
         
@@ -71,9 +73,52 @@ Online
 - Learned a little more about Go from [Mofizur Rahman](https://dev.to/moficodes/build-your-first-rest-api-with-go-2gcj)
 - [Prototype API to look up tax rates](https://github.com/OneTaxApi/location-taxrate-api) using [ISO-3166 codes](https://www.iso.org/iso-3166-country-codes.html)
         
-<div class="my-footer"><p>IETF Hackathon - OneTaxAPI </p></div>       
+<div class="my-footer"><p>IETF Hackathon - OneTaxAPI </p></div>   
+  
 ---
-        
+
+### Problem
+All Africans and Asian countries are not covered by stipe API
+
+### Solution
+Provide an API that can provide a solution to most of this countrie.
+
+<div class="my-footer"><p>IETF Hackathon - OneTaxAPI </p></div>
+---
+
+## Case study(Stripe taxes)
+Stripe automates tax collection and calculation. This helps the collection of the right 
+amount and access reports necessary for return filing.
+
+__Problem Solved by stipe tax__
+
+- Tax Localization - based on customer location
+- Tax ID validation - automatic validation of VAT ids
+- Filing and remittance - provides reports so you can easily file on your own
+- Coverage - all US states over 30 countries mostly in Europe and Canada.
+
+<div class="my-footer"><p>IETF Hackathon - OneTaxAPI </p></div>
+
+---
+### Design
+1. Tax Rates
+  - A resource to allow you to define any number of tax rates and apply them to invoices
+ and subscriptions.
+
+  __Attributes__
+  - id (Integer) - unique identifier
+  - type (String) - tax type eg `vat`, `digitaltax`
+  - active (Boolean) - determine is active or inactive
+  - country ( ISO code) - 2 letter country code
+  - name (String) - Display name eg 'vat'
+  - percentage (decimal) - rate percentage
+  - state(string) - ISO code
+  - created_at(timestamp)
+  - updated_at(timestamp)
+
+<div class="my-footer"><p>IETF Hackathon - OneTaxAPI </p></div>
+
+---        
 # What we learned
 
 <Lessons learned from this hackathon>

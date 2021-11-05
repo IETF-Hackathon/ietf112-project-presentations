@@ -41,6 +41,7 @@
 class: center, middle
 
 # IETF Hackathon
+## One Tax API
       
 IETF 112
       
@@ -54,52 +55,101 @@ Online
 # Hackathon Plan
 
 <What problem were you working on?>
-      - Determine standards needed to enable secure and efficient taxation of e-commerce
+  - Determine standards needed to enable secure and efficient taxation of e-commerce
+  - Motivated by [introduction of taxes on digital payments in Kenya](https://www.ey.com/en_gl/tax-alerts/kenya-introduces-vat-regulations-on-supply-of-digital-services)
+  - Minimise need for double registration for small to moderate transactions
+  - A standards tax API in kenya and african countries
+
         
 <How you planned to solve it?>
         
-<div class="my-footer"><p>IETF Hackathon - OneTaxAPI </p></div>       
+<div class="my-footer"><p>IETF Hackathon - OneTaxAPI </p></div> 
+
 ---
 
 # What got done
         
-        - Literature review
-        - Initial design specifications
-        - [Prototype API to look up tax rates](https://github.com/OneTaxApi/location-taxrate-api)
+- Literature review
+- Initial design specifications
+- Learned a little more about Go from [Mofizur Rahman](https://dev.to/moficodes/build-your-first-rest-api-with-go-2gcj)
+- [Prototype API to look up tax rates](https://github.com/OneTaxApi/location-taxrate-api) using [ISO-3166 codes](https://www.iso.org/iso-3166-country-codes.html)
         
-<div class="my-footer"><p>IETF Hackathon - OneTaxAPI </p></div>       
+<div class="my-footer"><p>IETF Hackathon - OneTaxAPI </p></div>   
+  
 ---
-        
+
+### Problem
+All Africans and Asian countries are not covered by stipe API
+
+### Solution
+Provide an API that can provide a solution to most of this countries.
+
+<div class="my-footer"><p>IETF Hackathon - OneTaxAPI </p></div>
+  
+---
+
+## Case study(Stripe taxes)
+  
+Stripe automates tax collection and calculation. This helps the collection of the right 
+amount and access reports necessary for return filing.
+
+__Problem Solved by stipe tax__
+
+- Tax Localization - based on customer location
+- Tax ID validation - automatic validation of VAT ids
+- Filing and remittance - provides reports so you can easily file on your own
+- Coverage - all US states over 30 countries mostly in Europe and Canada.
+
+<div class="my-footer"><p>IETF Hackathon - OneTaxAPI </p></div>
+
+---
+
+### Design
+1. Tax Rates
+  - A resource to allow you to define any number of tax rates and apply them to invoices
+ and subscriptions.
+
+  __Attributes__
+  - id (Integer) - unique identifier
+  - type (String) - tax type eg `vat`, `digitaltax`
+  - active (Boolean) - determine is active or inactive
+  - country ( ISO code) - 2 letter country code
+  - name (String) - Display name eg 'vat'
+  - percentage (decimal) - rate percentage
+  - state(string) - ISO code
+  - created_at(timestamp)
+  - updated_at(timestamp)
+
+<div class="my-footer"><p>IETF Hackathon - OneTaxAPI </p></div>
+
+---
+
 # What we learned
 
 <Lessons learned from this hackathon>
-        - <Issues with existing drafts/RFCs>
-        - <New implementation guidance?>
-        - <New feedback to take to WG?>
-        - <New work to take to WG?>
+- [Stripe has a tax rate lookup](https://stripe.com/docs/billing/taxes/tax-rates)
+- A number of bodies to standardize payments
+  - [EMVCO](https://www.emvco.com/emv-technologies/src/)
+  - [PCI](https://www.pcisecuritystandards.org/)
+- [OECD has taxation guidelines](https://www.oecd.org/ctp/international-vat-gst-guidelines-9789264271401-en.htm)
+- [Business to consumer taxes for e-commerce are an OECD priority](https://www.oecd.org/tax/beps/beps-actions/action1/)
+- Relevant RFCs include [5280](https://datatracker.ietf.org/doc/html/rfc5280) used in [3D Secure](https://en.wikipedia.org/wiki/3-D_Secure) and [Secure Electronic Transaction](https://en.wikipedia.org/wiki/Secure_Electronic_Transaction)
+
         
 <div class="my-footer"><p>IETF Hackathon - OneTaxAPI </p></div>      
 ---
   
-# Example slide with an image
-        
-<!-- .left[![Left-aligned image](https://upload.wikimedia.org/wikipedia/commons/b/b8/Muito_fixe.png)] --> 
-        
- <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/Muito_fixe.png" alt="Computer network" width="300" height="400">
-        - Image sizing needs to be done in HTML at this point
+# What Next
+  
+ - More complete API specification      
+ - Add example APIs for payment processor to tax authority payments
+ - Use full ISO 3166 codes for sub country level taxation
+ - Consider security and privacy aspects in more detail
+ - Try API implementations in other programming languages
 
 <div class="my-footer"><p>IETF Hackathon - OneTaxAPI </p></div>       
         
----
-# Example slide with a video
-
-
-        
-<!-- <iframe src="https://player.vimeo.com/video/134243897" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-<p><a href="https://vimeo.com/134243897">BarBoF on QUIC at the IETF in Prague 22/07/2015</a> from <a href="https://vimeo.com/user42239424">William Diego</a> on <a href="https://vimeo.com">Vimeo</a>.</p> -->
-
- `<div style="position: relative; width: 50%; height: 0; padding-bottom: 37.5%;"><iframe src="https://player.bilibili.com/player.html?aid=412760976" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe></div>
-<div class="my-footer"><p>IETF Hackathon - project name </p></div>  
+ 
 ---
  # Wrap up
   ---  
@@ -108,28 +158,25 @@ Online
 .left-column[ 
         #### Team members:
         
-        - A.Y. Zer
-        - P.O. Mta
+        - Benson Muite
         
         ]
 .right-column[ 
-        #### Other links:
+        #### Helpful Feedback:
         
-        -
-        -
+        - Ali Hussain
         
         ]
 
 .left-column[ 
-        #### First timers @ IETF/Hackathon:
+        #### Newcomers:
         
-        - B.H. Kot
-        - G.T. Dew
+        - Moses Gathuku
         ]
 .right-column[ 
         #### Notes and contacts:
         
-        -
+        - benson_muite at emailplus.org
         -
         ]
 
